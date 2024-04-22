@@ -182,7 +182,6 @@ inline ForwardList<T>::~ForwardList() {
 		p = p->next;
 		delete temp;
 	}
-	head_ = nullptr;
 }
 
 template<class T>

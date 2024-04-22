@@ -64,7 +64,7 @@ public:
 	void max_load_factor(float ml);
 
 private:
-	ForwardList<_Nodeptr> elems;
+	ForwardList<_Nodeptr>* elems;
 	Iterator<_Nodeptr>* arr;
 	size_type size_;
 	size_type bucket_count_;
@@ -109,8 +109,6 @@ template<class Key, class T, class Hash>
 inline HashTable<Key, T, Hash>::~HashTable() {
 	delete elems;
 	delete[] arr;
-	arr = nullptr;
-	elems = nullptr;
 }
 
 template<class Key, class T, class Hash>
@@ -207,7 +205,6 @@ inline Iterator<HashNode<std::pair<const Key, T>>> HashTable<Key, T, Hash>::eras
 		checkPrev.ptr_->next = deleter.ptr_->next;
 	}
 	delete deleter.ptr_;
-	deleter.ptr_ = nullptr;
 	--size_;
 	return checkPrev;
 }
