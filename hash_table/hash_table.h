@@ -74,13 +74,17 @@ private:
 };
 
 template<class Key, class T, class Hash>
-inline HashTable<Key, T, Hash>::HashTable(size_type count) :
+inline HashTable<Key, T, Hash>::HashTable(size_type count) try :
 	elems(new ForwardList<_Nodeptr>),
 	arr(new Iterator<_Nodeptr>[count]),
 	size_(0),
 	bucket_count_(count),
 	max_load_factor_(1.0)
-{}
+{} 
+catch (const std::bad_alloc&) {
+	delete elems;
+	throw;
+}
 
 template<class Key, class T, class Hash>
 inline HashTable<Key, T, Hash>::HashTable(const HashTable& copy) :
