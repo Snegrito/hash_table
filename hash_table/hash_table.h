@@ -257,7 +257,7 @@ inline ConstIterator<HashNode<std::pair<const Key, T>>> HashTable<Key, T, Hash>:
 template<class Key, class T, class Hash>
 inline void HashTable<Key, T, Hash>::clear() {
 	while (size_ != 0) {
-		erase(begin());
+		erase(this->begin());
 	}
 }
 

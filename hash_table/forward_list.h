@@ -136,7 +136,7 @@ public:
 	iterator erase_after(const_iterator pos);
 
 	void swap(ForwardList& other) noexcept;
-
+	void clear();
 	bool empty() const noexcept;
 
 private:
@@ -176,12 +176,7 @@ inline ForwardList<T>::ForwardList(ForwardList&& move) noexcept :
 
 template<class T>
 inline ForwardList<T>::~ForwardList() {
-	ListNodeBase* p = head_.next;
-	while (p) {
-		ListNode<T>* temp = static_cast<ListNode<T>*>(p);
-		p = p->next;
-		delete temp;
-	}
+	this->clear();
 }
 
 template<class T>
@@ -223,6 +218,17 @@ inline Iterator<T> ForwardList<T>::erase_after(const_iterator pos) {
 template<class T>
 inline void ForwardList<T>::swap(ForwardList& other) noexcept {
 	std::swap(head_, other.head_);
+}
+
+template<class T>
+inline void ForwardList<T>::clear() {
+	ListNodeBase* p = head_.next;
+	while (p) {
+		ListNode<T>* temp = static_cast<ListNode<T>*>(p);
+		p = p->next;
+		delete temp;
+	}
+	head_ = nullptr;
 }
 
 template<class T>
